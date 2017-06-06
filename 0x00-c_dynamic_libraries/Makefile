@@ -25,8 +25,8 @@ libholberton.so : $(OBJ)
 # build .so file, remove .o files, and link shared library using rpath
 rpath : $(OBJ)
 	$(CC) -shared $(CFLAGS) -o libholberton.so $(OBJ)
-	$(CC) -L. -Wl,-rpath=. -o len 0-main.c -lholberton
+	$(CC) -L. -Wl,-rpath=. -o len mainfiles/0-main.c -lholberton
 	rm *~ *.o
 
 clean :
-	rm *.o *~ libholberton.so len
+	rm *.o *~ len

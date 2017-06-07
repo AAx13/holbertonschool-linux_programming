@@ -29,4 +29,4 @@ rpath : $(OBJ)
 	rm *~ *.o
 
 clean :
-	rm *.o *~ len
+	rm *.o *~ len src/*~ pysrc/*~ headers/*~ mainfiles/*~

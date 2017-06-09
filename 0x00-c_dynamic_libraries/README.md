@@ -18,5 +18,5 @@
 #
 
 <p align="center">
-   <a href="Medium">Build your own Static and Dynamic Libraries</a>
+   <a href="https://medium.com/@DamazoAli/creating-libraries-in-linux-d77ae5fa07d9">Build your own Static and Dynamic Libraries</a>
 </p>

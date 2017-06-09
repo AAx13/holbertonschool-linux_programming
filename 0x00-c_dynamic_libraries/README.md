@@ -12,3 +12,7 @@
 * [100-tests.py](../0x00-c_dynamic_libraries/100-tests.py) Python script that utilizes the `100-operations.so` library built from c functions.
 
 * [header.h](../0x00-c_dynamic_libraries/holberton.h) Contains all the prototypes for the functions within the `src` directory.
+
+<p align="center">
+   <a href="Medium">Build your own Static and Dynamic Libraries</a>
+</p>

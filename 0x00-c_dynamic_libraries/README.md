@@ -1,9 +1,9 @@
 # Dynamic Libraries Project
 
 ## Libraries
-`libholberton.so` Is a Shared or Dynamic Library created from all the functions
-in the `src` directory.
-`header.h` Contains all the prototypes for the functions within the `src` directory.
+* `libholberton.so` Is a Shared or Dynamic Library created from all the functions
+  in the `src` directory.
+* `header.h` Contains all the prototypes for the functions within the `src` directory.
 ```
 /* _putchar - writes a character to stdout. */
 int _putchar(char c);

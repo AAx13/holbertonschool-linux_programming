@@ -1,4 +1,4 @@
-#include "../headers/holberton.h"
+#include "../holberton.h"
 
 /**
  * _strlen - calculate the length of a string.

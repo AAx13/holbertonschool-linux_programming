@@ -8,7 +8,7 @@
 #
 
 CC = gcc
-DEPS = headers/holberton.h
+DEPS = holberton.h
 CFLAGS = -Wall -Werror -pedantic -Wextra
 CFILES = src/*.c
 OBJ = *.o

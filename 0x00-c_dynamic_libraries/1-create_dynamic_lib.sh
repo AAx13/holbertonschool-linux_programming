@@ -1,2 +1,2 @@
 #!/bin/bash
-blah blah
+gcc -shared -Wall -fPIC -o liball.so *.c

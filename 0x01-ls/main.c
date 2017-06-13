@@ -9,27 +9,27 @@
  */
 int main(int ac __attribute__((unused)), char **av)
 {
-	struct dirent *dirent;
-	DIR *dirp;
-
 	av++;
-	while (*av != NULL)
+	if (!*av)
 	{
-		if ((dirp = opendir(*av)) == NULL)
-		{
-			perror(*av);
-			exit(EXIT_FAILURE);
-		}
+		printf("current directory ( )\n");
+	}
 
-		while ((dirent = readdir(dirp)))
+	while (*av)
+	{
+		switch (**av)
 		{
-			if (strncmp(dirent->d_name, ".", 1) != 0)
-			{
-				printf("%s  ", dirent->d_name);
-			}
-		}
-		printf("\n");
+			case '.':
+				printf("current directory (.)\n");
+				break;
 
+			case '-':
+				process_opt(av);
+				break;
+
+			default:
+				printf("operate on this directory %s\n", *av);
+		}
 		av++;
 	}
 

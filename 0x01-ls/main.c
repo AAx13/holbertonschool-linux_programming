@@ -1,36 +1,41 @@
 #include "header.h"
 
-/**
- * main - mainfile.
- * @ac: Amount of args.
- * @av: Array of strings containing args.
- *
- * Return: EXIT_SUCCESS or EXIT_FAILURE.
- */
-int main(int ac __attribute__((unused)), char **av)
+int main(int ac, char **av)
 {
-	av++;
-	if (!*av)
+	struct stat sb;
+	int i;
+
+	if (ac == 1)
 	{
-		printf("current directory ( )\n");
+		printf("printing current directory\n");
+		return (EXIT_SUCCESS);
 	}
 
-	while (*av)
+	i = 1;
+	while (av[i])
 	{
-		switch (**av)
+		if (strncmp(av[i], "-", 1) != 0)
 		{
-			case '.':
-				printf("current directory (.)\n");
-				break;
+			if (lstat(av[i], &sb) == -1)
+			{
+				perror("stat");
+				exit(EXIT_FAILURE);
+			}
 
-			case '-':
-				process_opt(av);
-				break;
-
-			default:
-				printf("operate on this directory %s\n", *av);
+			if ((sb.st_mode & S_IFREG) != 0)
+			{
+				printf("%s is a file\n", av[i]);
+			}
+			else if ((sb.st_mode & S_IFDIR) != 0)
+			{
+				printf("%s is a directory\n", av[i]);
+			}
 		}
-		av++;
+		else
+		{
+			printf("%s is an option\n", av[i]);
+		}
+		i++;
 	}
 
 	return (EXIT_SUCCESS);

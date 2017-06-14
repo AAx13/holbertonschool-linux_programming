@@ -17,4 +17,8 @@ typedef struct dir_s
 /* definition of directory list */
 extern dir_list *list;
 
+int format_output(char **av);
+
+
+
 #endif /* _LS _ */

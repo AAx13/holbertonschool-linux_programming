@@ -15,19 +15,18 @@ int format_output(char **av)
 		i++;
 	}
 
-	if (args == 0)
+	switch (args)
 	{
-		printf("list current directory contents\n");
-	}
+		case 0:
+			printf("list current directory contents\n");
+			break;
 
-	if (args == 1)
-	{
-		printf("check for options and list contents of directory\n");
-	}
+		case 1:
+			printf("check for options and list contents of directory\n");
+			break;
 
-	if (args > 1)
-	{
-		printf("check for options and format for two or more lists of directory contents\n");
+		default:
+			printf("check for options and format for two or more lists of directory contents\n");
 	}
 
 	return (0);

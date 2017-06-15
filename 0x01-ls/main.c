@@ -2,44 +2,26 @@
 
 int main(int ac, char **av)
 {
-	struct stat sb;
+	hash_table_t *ht;
 	int i;
 
-	if (ac == 1)
+	av++;
+	i = 0;
+	if (!*av)
 	{
-		printf("printing current directory\n");
-		format_output(av);
-		return (EXIT_SUCCESS);
+		ht = ht_create(ac);
+		process_command(ht, ".", i);
 	}
-
-	i = 1;
-	while (av[i])
+	else
 	{
-		if (strncmp(av[i], "-", 1) != 0)
+		ht = ht_create(ac - 1);
+		while (*av && i < ac)
 		{
-			if (lstat(av[i], &sb) == -1)
-			{
-				perror(av[i]);
-				exit(EXIT_FAILURE);
-			}
-
-			if ((sb.st_mode & S_IFREG) != 0)
-			{
-				printf("%s is a file\n", av[i]);
-				format_output(av);
-			}
-			else if ((sb.st_mode & S_IFDIR) != 0)
-			{
-				printf("%s is a directory\n", av[i]);
-				format_output(av);
-			}
+			process_command(ht, *av, i);
+			i++;
+			av++;
 		}
-		else
-		{
-			printf("%s is an option\n", av[i]);
-		}
-		i++;
 	}
-
+	ht_print(ht);
 	return (EXIT_SUCCESS);
 }

@@ -13,7 +13,12 @@ int process_command(hash_table_t *ht, char *cmd, int index)
 	struct dirent *read;
 	DIR *dirp;
 
-	if ((dirp = opendir(cmd)) == NULL)
+	if (strncmp(cmd, "-", 1) == 0)
+	{
+		ht_set(ht, "option", cmd, 0);
+		return (EXIT_SUCCESS);
+	}
+	else if ((dirp = opendir(cmd)) == NULL)
 	{
 		perror(cmd);
 		exit(EXIT_FAILURE);

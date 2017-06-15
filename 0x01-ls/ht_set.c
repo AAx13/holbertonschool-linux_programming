@@ -5,7 +5,7 @@
  * @ht: A hash table.
  * @key: Key used to index where the new element is stored.
  * @value: Values to store in the new element node.
- * @index: Index of the hash table.
+ * @index: Index of the array..
  *
  * Return: 0 if succeeded, 1 otherwise.
  */

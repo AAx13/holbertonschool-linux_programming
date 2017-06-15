@@ -16,22 +16,21 @@ void ht_print(const hash_table_t *ht)
 		return;
 	}
 
-	for (i = 0; i < ht->size; i++)
+	i = 0;
+	if (!ht->array[0])
+	{
+		i = 1;
+	}
+	while (ht->array[i])
 	{
 		node = ht->array[i];
-		if (ht->size > 1)
-		{
-			printf("%s:\n", node->key);
-		}
+		printf("%s:\n", node->key);
 		while (node)
 		{
-			if (strncmp(node->value, ".", 1) != 0)
-			{
-				printf("%s  ", node->value);
-			}
+			printf("%s  ", node->value);
 			node = node->next;
-
 		}
 		printf("\n");
+		i++;
 	}
 }

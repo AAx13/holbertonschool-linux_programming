@@ -44,4 +44,7 @@ int ht_set(hash_table_t *ht, const char *key, const char *value, int index);
 /* ht_print - Prints a hash table. */
 void ht_print(const hash_table_t *ht);
 
+/* ht_delete - Deletes a hash table. */
+void ht_delete(hash_table_t *ht);
+
 #endif /* _HASH_ */

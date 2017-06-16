@@ -17,8 +17,8 @@ int main(int ac, char **av)
 	x = 0;
 	if (!*av)
 	{
-		ht = ht_create(ac);
-		process_command(ht, ".", 0);
+		ht = ht_create(ac + 1);
+		process_command(ht, ".", i);
 	}
 	else
 	{
@@ -38,6 +38,9 @@ int main(int ac, char **av)
 			process_command(ht, ".", i);
 		}
 	}
-	ht_print(ht);
+	format_output(ht);
+
+	ht_delete(ht);
+
 	return (EXIT_SUCCESS);
 }

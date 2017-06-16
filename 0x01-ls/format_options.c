@@ -16,7 +16,7 @@ void format_options(hash_table_t *ht)
 					break;
 
 				case 'a':
-					printf("The -a flag is here\n");
+					option_a(ht);
 					break;
 			}
 			flag_node->value++;

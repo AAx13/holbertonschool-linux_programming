@@ -18,7 +18,7 @@ void format_output(hash_table_t *ht)
 
 	if (ht->array[0])
 	{
-		format_options(ht);
+		printf("These are options");
 	}
 	else if (ht->size == 1)
 	{

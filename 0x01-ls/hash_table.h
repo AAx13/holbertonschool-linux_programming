@@ -39,7 +39,7 @@
 hash_table_t *ht_create(unsigned long int size);
 
 /* ht_set - Adds an element to the hash table. */
-int ht_set(hash_table_t *ht, const char *key, const char *value, int index);
+int ht_set(hash_table_t *ht, char *key, char *value, int index);
 
 /* ht_print - Prints a hash table. */
 void ht_print(const hash_table_t *ht);

@@ -14,7 +14,7 @@ int process_command(hash_table_t *ht, char *cmd, int index)
 	struct stat sb;
 	DIR *dirp;
 
-	if (strncmp(cmd, "-", 1) == 0)
+	if (_strncmp(cmd, "-", 1) == 0)
 	{
 		ht_set(ht, "option", ++cmd, 0);
 		return (EXIT_SUCCESS);

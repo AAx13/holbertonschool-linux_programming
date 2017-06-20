@@ -24,7 +24,7 @@ void format_output(hash_table_t *ht)
 	{
 		for (node = ht->array[1]; node; node = node->next)
 		{
-			if (strncmp(node->value, ".", 1) != 0)
+			if (_strncmp(node->value, ".", 1) != 0)
 			{
 				printf("%s  ", node->value);
 			}
@@ -35,13 +35,13 @@ void format_output(hash_table_t *ht)
 		for (i = 1; i < ht->size; i++)
 		{
 			node = ht->array[i];
-			if (ht->size > 2 && strcmp(node->key, "file") != 0)
+			if (ht->size > 2 && _strcmp(node->key, "file") != 0)
 			{
 				printf("%s:\n", node->key);
 			}
 			while (node)
 			{
-				if (strncmp(node->value, ".", 1) != 0)
+				if (_strncmp(node->value, ".", 1) != 0)
 				{
 					printf("%s  ", node->value);
 				}

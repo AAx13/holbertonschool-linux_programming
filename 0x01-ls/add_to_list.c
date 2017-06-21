@@ -36,5 +36,5 @@ void add_to_list(dirlist **head, char *arg)
 		}
 	}
 	new_node->next = NULL;
-	new_node->name = _strdup(file);
+	new_node->name = _strdup(arg);
 }

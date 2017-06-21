@@ -19,6 +19,10 @@ int process_arg(dirlist **head, char *arg)
 		}
 		else
 		{
+			if (head)
+			{
+				delete_list(*head);
+			}
 			exit(print_error(arg));
 		}
 	}

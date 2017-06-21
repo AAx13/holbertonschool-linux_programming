@@ -18,6 +18,10 @@ void build_list(dirlist **head, char *arg, int i)
 		dirp = opendir(arg);
 		if (!dirp)
 		{
+			if (head)
+			{
+				delete_list(*head);
+			}
 			exit(print_error(arg));
 		}
 

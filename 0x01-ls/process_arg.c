@@ -2,6 +2,7 @@
 
 /**
  * process_arg - send arg info to their respective structs.
+ * @head: A linked list.
  * @arg: An arg from stdin.
  *
  * Return: EXIT_SUCCESS or EXIT_FAILURE.

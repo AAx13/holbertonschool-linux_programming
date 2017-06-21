@@ -11,7 +11,7 @@ int process_arg(dirlist **head, char *arg)
 {
 	struct stat sb;
 
-	if (stat(arg, &sb) == -1)
+	if (lstat(arg, &sb) == -1)
 	{
 		if (_strncmp(arg, "-", 1) == 0)
 		{

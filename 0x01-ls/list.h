@@ -1,7 +1,6 @@
 #ifndef _LIST_
 #define _LIST_
 
-
 /**
  * struct list_s - contains list of all items in a directory.
  * @name: Name of file or directory.
@@ -26,7 +25,5 @@ void print_list(dirlist *head);
 
 /* delete_list - deletes a linked list. */
 void delete_list(dirlist *head);
-
-
 
 #endif /* _LIST_ */

@@ -8,6 +8,8 @@
 #include <stdio.h>
 #include <errno.h>
 
+
+
 /* _strdup - duplicate a string. */
 char *_strdup(char *str);
 
@@ -33,6 +35,5 @@ int process_arg(dirlist **head, char *arg);
 
 /* build_list - builds list containing information on a file or directory. */
 void build_list(dirlist **head, char *arg, int i);
-
 
 #endif /* _LS _ */

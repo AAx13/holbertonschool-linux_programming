@@ -3,44 +3,17 @@
 /**
  * main - mainfile.
  * @ac: Amount of args.
- * @av: Array of strings containing args.
+ * @av: Args.
  *
- * Return: EXIT_SUCCESS or EXIT_FAILURE.
+ * Return: 0 if Ok, 1 if minor problems, 2 if serious trouble.
  */
-int main(int ac, char **av)
+int main(int ac, char **av __attribute__((unused)))
 {
-	hash_table_t *ht;
-	int i, x;
-
-	av++;
-	i = 1;
-	x = 0;
-	if (!*av)
+	if (ac == 1)
 	{
-		ht = ht_create(ac + 1);
-		process_command(ht, ".", i);
+		print_cwd();
+		return (EXIT_SUCCESS);
 	}
-	else
-	{
-		ht = ht_create(ac);
-		while (*av)
-		{
-			process_command(ht, *av, i);
-			if (strncmp(*av, "-", 1) != 0)
-			{
-				x++;
-				i++;
-			}
-			av++;
-		}
-		if (x == 0)
-		{
-			process_command(ht, ".", i);
-		}
-	}
-	format_output(ht);
-
-	ht_delete(ht);
 
 	return (EXIT_SUCCESS);
 }

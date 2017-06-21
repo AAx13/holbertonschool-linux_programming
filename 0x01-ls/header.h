@@ -4,8 +4,8 @@
 #include <sys/stat.h>
 #include <stdlib.h>
 #include <dirent.h>
-#include <string.h>
 #include <stdio.h>
+#include <errno.h>
 
 /* _strdup - duplicate a string. */
 char *_strdup(char *str);

@@ -2,7 +2,7 @@
 #define _LIST_
 
 /**
- * struct list_s - contains list of all items in a directory.
+ * struct dirlist_s - contains list of all items in a directory.
  * @name: Name of file or directory.
  * @next: Next file or directory.
  *

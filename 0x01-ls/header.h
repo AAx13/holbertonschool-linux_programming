@@ -30,10 +30,13 @@ int print_error(char *arg);
 /* print_cwd - print contents of current working directory. */
 int print_cwd(void);
 
+/* print_dirs - prints contents of 2 or more directories. */
+void print_dirs(dirlist *head, int dirs);
+
 /* process_arg - send arg info to their respective structs. */
-int process_arg(dirlist **head, char *arg);
+int process_arg(dirlist **head, char *arg, int id);
 
 /* build_list - builds list containing information on a file or directory. */
-void build_list(dirlist **head, char *arg, int i);
+void build_list(dirlist **head, char *arg, int i, int id);
 
 #endif /* _LS _ */

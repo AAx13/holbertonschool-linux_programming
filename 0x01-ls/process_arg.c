@@ -4,10 +4,11 @@
  * process_arg - send arg info to their respective structs.
  * @head: A linked list.
  * @arg: An arg from stdin.
+ * @id: Used to identify each arg group.
  *
- * Return: EXIT_SUCCESS or EXIT_FAILURE.
+ * Return: 0 if dir, 1 if file, 2 if option. -1 if there was an issue.
  */
-int process_arg(dirlist **head, char *arg)
+int process_arg(dirlist **head, char *arg, int id)
 {
 	struct stat sb;
 
@@ -16,7 +17,7 @@ int process_arg(dirlist **head, char *arg)
 		if (_strncmp(arg, "-", 1) == 0)
 		{
 			printf("option\n");
-			return (EXIT_SUCCESS);
+			return (2);
 		}
 		else
 		{
@@ -31,13 +32,13 @@ int process_arg(dirlist **head, char *arg)
 	switch (sb.st_mode & S_IFMT)
 	{
 		case S_IFDIR:
-			build_list(head, arg, 0);
-			break;
+			build_list(head, arg, 0, id);
+			return (0);
 
 		case S_IFREG:
-			build_list(head, arg, 1);
-			break;
+			build_list(head, arg, 1, id);
+			return (1);
 	}
 
-	return (EXIT_SUCCESS);
+	return (-1);
 }

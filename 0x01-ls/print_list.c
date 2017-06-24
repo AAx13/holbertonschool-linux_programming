@@ -3,18 +3,30 @@
 /**
  * print_list - prints a linked list.
  * @head: A linked list.
+ * @dir: Amount of directory args.
+ * @file: Amount of file args.
  *
  * Return: Void.
  */
-void print_list(dirlist *head)
+void print_list(dirlist *head, int dir, int file)
 {
 	dirlist *node;
 
 	node = head;
-	while (node)
+	if (dir < 2 && file < 2)
 	{
-		printf("%s  ", node->name);
-		node = node->next;
+		while (node)
+		{
+			if (_strncmp(node->name, ".", 1) != 0)
+			{
+				printf("%s  ", node->name);
+			}
+			node = node->next;
+		}
+		printf("\n");
 	}
-	printf("\n");
+	else if (dir > 1)
+	{
+		print_dirs(head, dir);
+	}
 }

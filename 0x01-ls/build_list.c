@@ -3,12 +3,13 @@
 /**
  * build_list - builds list containing information on a file or directory.
  * @head: A linked list.
- * @arg: The argument from stdin.
- * @i: Indicates if this arg is a file or directory.
+ * @arg: Arg from stdin.
+ * @i: Indicates if this is a file or directory.
+ * @id: Used to identify each arg group.
  *
  * Return: Void.
  */
-void build_list(dirlist **head, char *arg, int i)
+void build_list(dirlist **head, char *arg, int i, int id)
 {
 	struct dirent *read;
 	DIR *dirp;
@@ -33,13 +34,20 @@ void build_list(dirlist **head, char *arg, int i)
 		}
 		while (read)
 		{
-			add_to_list(head, read->d_name);
+			if (read->d_type & DT_DIR)
+			{
+				add_to_list(head, arg, read->d_name, 0, id);
+			}
+			else
+			{
+				add_to_list(head, arg, read->d_name, 1, id);
+			}
 			read = readdir(dirp);
 		}
 		closedir(dirp);
 	}
 	else
 	{
-		printf("reserved for files\n");
+		add_to_list(head, arg, arg, 1, id);
 	}
 }

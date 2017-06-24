@@ -3,11 +3,14 @@
 /**
  * add_to_list - adds file or directory to the list.
  * @head: A linked list.
- * @arg: An argument from stdin.
+ * @arg: Original arg from stdin.
+ * @name: Name of the file or directory.
+ * @type: 0 if dir 1 if file.
+ * @id: Used to identify each arg group.
  *
  * Return: Void.
  */
-void add_to_list(dirlist **head, char *arg)
+void add_to_list(dirlist **head, char *arg, char *name, int type, int id)
 {
 	dirlist *new_node, *tmp_node;
 
@@ -36,5 +39,8 @@ void add_to_list(dirlist **head, char *arg)
 		}
 	}
 	new_node->next = NULL;
-	new_node->name = _strdup(arg);
+	new_node->arg = _strdup(arg);
+	new_node->name = _strdup(name);
+	new_node->type = type;
+	new_node->id = id;
 }

@@ -8,7 +8,7 @@
  *
  * Return: Void.
  */
-void sort_list(dirlist *head, int dir __attribute__((unused)), int file __attribute__((unused)))
+void sort_list(dirlist *head, int dir, int file)
 {
 	dirlist *node;
 
@@ -17,4 +17,6 @@ void sort_list(dirlist *head, int dir __attribute__((unused)), int file __attrib
 	{
 		node = node->next;
 	}
+	file++;
+	dir++;
 }

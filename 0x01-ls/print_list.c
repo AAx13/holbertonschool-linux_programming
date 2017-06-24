@@ -19,7 +19,14 @@ void print_list(dirlist *head, int dir, int file)
 		{
 			if (_strncmp(node->name, ".", 1) != 0)
 			{
-				printf("%s  ", node->name);
+				if (node->next)
+				{
+					printf("%s  ", node->name);
+				}
+				else
+				{
+					printf("%s", node->name);
+				}
 			}
 			node = node->next;
 		}

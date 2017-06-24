@@ -27,9 +27,6 @@ size_t _strlen(char *str);
 /* print_error - prints error based on errno. */
 int print_error(char *arg);
 
-/* print_cwd - print contents of current working directory. */
-int print_cwd(void);
-
 /* print_dirs - prints contents of 2 or more directories. */
 void print_dirs(dirlist *head, int dirs);
 

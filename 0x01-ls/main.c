@@ -19,8 +19,8 @@ int main(int ac, char **av)
 	head = NULL;
 	if (ac == 1)
 	{
-		print_cwd();
-		return (EXIT_SUCCESS);
+		process_arg(&head, ".", id);
+		dir++;
 	}
 	else
 	{

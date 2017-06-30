@@ -40,7 +40,7 @@ int main(int ac, char **av)
 			id++;
 		}
 	}
-	/*sort_list(head, dir, file);*/
+	sort_list(head, dir, file);
 	print_list(head, dir, file);
 	delete_list(head);
 

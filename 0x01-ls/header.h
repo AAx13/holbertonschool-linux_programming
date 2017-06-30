@@ -10,6 +10,9 @@
 
 
 
+/* _tolower - convert letter to lower case. */
+int _tolower(int c);
+
 /* _strdup - duplicate a string. */
 char *_strdup(char *str);
 
@@ -18,6 +21,9 @@ int _strcmp(const char *s1, const char *s2);
 
 /* _strncmp - compares (n) amount of characters of two strings. */
 int _strncmp(const char *s1, const char *s2, size_t n);
+
+/* _strcasecmp - compare two strings ignoring case. */
+int _strcasecmp(const char *s1, const char *s2);
 
 /* _strlen - gets the length of a string excluding the null byte. */
 size_t _strlen(char *str);

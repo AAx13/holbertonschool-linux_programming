@@ -36,6 +36,7 @@ void sort_list(dirlist *head, int dir, int file)
 			prev_node = node;
 			node = node->next;
 		}
+		node = head;
 		i++;
 	}
 

@@ -13,9 +13,9 @@ void sort_list(dirlist *head, int dir, int file)
 	dirlist *node, *next_node;
 
 	node = head;
-	next_node = node->next;
 	while (node && _strncmp(node->name, ".", 1) != 0)
 	{
+		next_node = node->next;
 		if (node->next && _strcasecmp(node->name, next_node->name) < 0)
 		{
 			printf("Swappin %s and %s\n", node->name, next_node->name);

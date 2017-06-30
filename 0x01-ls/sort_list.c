@@ -10,22 +10,36 @@
  */
 void sort_list(dirlist *head, int dir, int file)
 {
-	dirlist *node, *next_node;
+	dirlist *node, *next_node, *prev_node;
+	int size, i;
 
+	i = 0;
 	node = head;
-	while (node)
+	prev_node = NULL;
+	size = list_size(head);
+	while (i < size - 1)
 	{
-		next_node = node->next;
-		if (node->next
-		    && _strcasecmp(node->name, next_node->name) > 0
-		    && _strcmp(node->name, ".") != 0
-		    && _strcmp(node->name, "..") != 0)
+		while (node)
 		{
-			printf("HI sorting\n");
+			next_node = node->next;
+			if (node->next
+			    && _strcasecmp(node->name, next_node->name) > 0)
+			{
+				printf("SORTING\n");
+				if (prev_node)
+				{
+					prev_node->next = next_node;
+				}
+				node->next = next_node->next;
+				next_node->next = node;
+			}
+			prev_node = node;
+			node = node->next;
 		}
-		node = node->next;
+		i++;
 	}
 
-	file++;
+
 	dir++;
+	file++;
 }

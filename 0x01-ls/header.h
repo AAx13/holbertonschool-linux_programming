@@ -7,7 +7,6 @@
 #include <stdio.h>
 #include <errno.h>
 
-
 /**
  * struct dirlist_s - contains list of all items in a directory.
  * @arg: Original arg this node came from.

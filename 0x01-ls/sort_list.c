@@ -8,13 +8,13 @@
  *
  * Return: Void.
  */
-dirlist *sort_list(dirlist *head, int dir, int file)
+void sort_list(dirlist *head, int dir, int file)
 {
 	dirlist *current, *next, *previous, *temp;
 	int num_nodes, counter;
 
 	temp = head;
-	num_nodes = list_size(head) + 1;
+	num_nodes = list_size(head);
 	for (counter = 0; counter < num_nodes; counter++)
 	{
 		current = temp;
@@ -47,5 +47,4 @@ dirlist *sort_list(dirlist *head, int dir, int file)
 	}
 	dir++;
 	file++;
-	return (head);
 }

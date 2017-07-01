@@ -11,9 +11,7 @@
 void sort_list(dirlist *head, int dir, int file)
 {
 	dirlist *current, *next, *previous;
-	int num_nodes;
-	int counter;
-	int compare;
+	int num_nodes, counter, compare;
 
 	compare = 0;
 	num_nodes = list_size(head);

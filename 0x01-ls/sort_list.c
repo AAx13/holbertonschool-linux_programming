@@ -14,7 +14,7 @@ dirlist *sort_list(dirlist *head, int dir, int file)
 	int num_nodes, counter, compare;
 
 	compare = 0;
-	num_nodes = list_size(head);
+	num_nodes = list_size(head) + 1;
 	for (counter = 0; counter < num_nodes; counter++)
 	{
 		current = head;

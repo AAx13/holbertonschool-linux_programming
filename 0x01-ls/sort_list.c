@@ -10,24 +10,23 @@
  */
 dirlist *sort_list(dirlist *head, int dir, int file)
 {
-	dirlist *current, *next, *previous;
-	int num_nodes, counter, compare;
+	dirlist *current, *next, *previous, *temp;
+	int num_nodes, counter;
 
-	compare = 0;
+	temp = head;
 	num_nodes = list_size(head) + 1;
 	for (counter = 0; counter < num_nodes; counter++)
 	{
-		current = head;
+		current = temp;
 		next = current->next;
 		previous = NULL;
 		while (next != NULL)
 		{
-			compare = _strcasecmp(current->name, next->name);
-			if (compare > 0)
+			if (_strcasecmp(current->name, next->name) > 0)
 			{
 				if (current == head)
 				{
-					head = next;
+					temp = next;
 				}
 				else
 				{

@@ -36,7 +36,7 @@ void add_to_list(dirlist **head, char *arg, char *name, int type, int id);
 void print_list(dirlist *head, int dir, int file);
 
 /* sort_list - sorts list based on type and options */
-void sort_list(dirlist *head, int dir, int file);
+dirlist *sort_list(dirlist *head, int dir, int file);
 
 /* list_size - get size of list. */
 int list_size(dirlist *head);

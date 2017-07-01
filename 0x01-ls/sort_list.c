@@ -8,7 +8,7 @@
  *
  * Return: Void.
  */
-void sort_list(dirlist *head, int dir, int file)
+dirlist *sort_list(dirlist *head, int dir, int file)
 {
 	dirlist *current, *next, *previous;
 	int num_nodes, counter, compare;
@@ -48,4 +48,28 @@ void sort_list(dirlist *head, int dir, int file)
 	}
 	dir++;
 	file++;
+	return (head);
 }
+
+/**
+ *
+int main(void)
+{
+	dirlist *head;
+
+	head = NULL;
+	add_to_list(&head, "second node", "abc", 0, 1);
+	add_to_list(&head, "fourth node", "ABC", 0, 1);
+	add_to_list(&head, "fifth node", "folder1", 0, 1);
+	add_to_list(&head, "first node", "file3", 0, 1);
+	add_to_list(&head, "third node", "File2", 0, 1);
+	print_list(head, 0, 0);
+	printf("<-------->\n");
+	head = sort_list(head, 0, 0);
+	printf("<-------->\n");
+	print_list(head, 0, 0);
+	delete_list(head);
+
+	return (0);
+}
+*/

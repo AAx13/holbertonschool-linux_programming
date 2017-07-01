@@ -10,36 +10,44 @@
  */
 void sort_list(dirlist *head, int dir, int file)
 {
-	dirlist *node, *next_node, *prev_node;
-	int size, i;
+	dirlist *current, *next, *previous;
+	int num_nodes;
+	int counter;
+	int compare;
 
-	i = 0;
-	node = head;
-	prev_node = NULL;
-	size = list_size(head);
-	while (i < size - 1)
+	compare = 0;
+	num_nodes = list_size(head);
+	for (counter = 0; counter < num_nodes; counter++)
 	{
-		while (node)
+		current = head;
+		next = current->next;
+		previous = NULL;
+		while (next != NULL)
 		{
-			next_node = node->next;
-			if (node->next
-			    && _strcasecmp(node->name, next_node->name) > 0)
+			compare = _strcasecmp(current->name, next->name);
+			if (compare > 0)
 			{
-				printf("SORTING\n");
-				if (prev_node)
+				if (current == head)
 				{
-					prev_node->next = next_node;
+					head = next;
 				}
-				node->next = next_node->next;
-				next_node->next = node;
+				else
+				{
+					previous->next = next;
+				}
+				current->next = next->next;
+				next->next = current;
+				previous = next;
+				next = current->next;
 			}
-			prev_node = node;
-			node = node->next;
+			else
+			{
+				previous = current;
+				current = current->next;
+				next = current->next;
+			}
 		}
-		node = head;
-		i++;
 	}
-
 	dir++;
 	file++;
 }

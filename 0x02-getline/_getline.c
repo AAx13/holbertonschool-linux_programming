@@ -11,19 +11,37 @@ char *_getline(const int fd)
 {
 	size_t count;
 	char *line;
+	char c;
+	int i;
 
-	line = malloc(sizeof(char) * READ_SIZE);
+	i = 0;
+	line = malloc(sizeof(char) * BUFFER);
 	if (!line)
 	{
 		perror("line");
 		return (NULL);
 	}
 
-	count = read(fd, line, (size_t)READ_SIZE);
-	if (count == 0)
+	count = read(fd, &c, READ_SIZE);
+	while (count)
 	{
-		return (NULL);
+		if ((int)count == -1)
+		{
+			perror("read");
+			return (NULL);
+		}
+
+		if (count == 0 || c == '\n')
+		{
+			line[i] = '\0';
+			return (line);
+		}
+
+		line[i] = c;
+
+		count = read(fd, &c, READ_SIZE);
+		i++;
 	}
 
-	return (line);
+	return (NULL);
 }

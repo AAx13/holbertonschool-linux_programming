@@ -15,11 +15,6 @@ char *_getline(const int fd)
 	int i;
 
 	i = 0;
-	if (!fd)
-	{
-		return (NULL);
-	}
-
 	line = malloc(sizeof(char) * 81);
 	if (!line)
 	{

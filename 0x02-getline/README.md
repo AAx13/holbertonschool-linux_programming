@@ -1,0 +1,1 @@
+## Static variables, Getline Project

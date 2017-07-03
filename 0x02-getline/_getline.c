@@ -18,7 +18,6 @@ char *_getline(const int fd)
 	line = malloc(sizeof(char) * 81);
 	if (!line)
 	{
-		perror("line");
 		return (NULL);
 	}
 

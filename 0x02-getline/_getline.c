@@ -15,7 +15,12 @@ char *_getline(const int fd)
 	int i;
 
 	i = 0;
-	line = malloc(sizeof(char) * BUFFER);
+	if (!fd)
+	{
+		return (NULL);
+	}
+
+	line = malloc(sizeof(char) * 81);
 	if (!line)
 	{
 		perror("line");
@@ -27,7 +32,6 @@ char *_getline(const int fd)
 	{
 		if ((int)count == -1)
 		{
-			perror("read");
 			return (NULL);
 		}
 
@@ -36,9 +40,7 @@ char *_getline(const int fd)
 			line[i] = '\0';
 			return (line);
 		}
-
 		line[i] = c;
-
 		count = read(fd, &c, READ_SIZE);
 		i++;
 	}

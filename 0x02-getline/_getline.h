@@ -8,7 +8,7 @@
 
 /* max size to be read from file descriptor. */
 #define READ_SIZE 1
-#define BUFFER 1024
+#define BUFFER 81
 
 /* _getline - reads an entire line from a file descriptor. */
 char *_getline(const int fd);

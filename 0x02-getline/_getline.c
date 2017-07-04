@@ -24,9 +24,9 @@ char *_getline(const int fd)
 	}
 
 	count = read(fd, &c, READ_SIZE);
-	while ((int)count != -1)
+	while ((int)count > 0)
 	{
-		if (count == 0 || c == '\n')
+		if (c == '\n')
 		{
 			line_read[i] = '\0';
 			line_out = truncate_line(line_read);
@@ -38,9 +38,16 @@ char *_getline(const int fd)
 		count = read(fd, &c, READ_SIZE);
 		i++;
 	}
-	printf("fd->read->error\n");
-	free(line_read);
 
+	if (i != 0)
+	{
+		line_read[i] = '\0';
+		line_out = truncate_line(line_read);
+
+		free(line_read);
+		return (line_out);
+	}
+	free(line_read);
 	return (NULL);
 }
 

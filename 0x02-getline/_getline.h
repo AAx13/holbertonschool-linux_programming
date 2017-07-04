@@ -4,17 +4,24 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
+#include <errno.h>
 #include <stdio.h>
 
 /* max size to be read from file descriptor. */
 #define READ_SIZE 1
-#define BUFFER 1024
+#define BUFFER 80
 
 /* _getline - reads an entire line from a file descriptor. */
 char *_getline(const int fd);
 
 /* truncate_line - breaks off correct line to be returned. */
 char *truncate_line(char *line_read);
+
+/* _realloc - increase the size of the memory block pointed to by *ptr. */
+void *_realloc(void *ptr, size_t old, size_t new);
+
+/* putstr - writes a string to stdout. */
+int putstr(char *str);
 
 /* _strlen - returns length of a string excluding null byte. */
 size_t _strlen(char *str);

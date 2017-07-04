@@ -13,10 +13,10 @@
 /* _getline - reads an entire line from a file descriptor. */
 char *_getline(const int fd);
 
-/* */
+/* truncate_line - breaks off correct line to be returned. */
 char *truncate_line(char *line_read);
 
-/* */
+/* _strlen - returns length of a string excluding null byte. */
 size_t _strlen(char *str);
 
 #endif /* _GETLINE_ */

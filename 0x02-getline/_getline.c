@@ -1,8 +1,10 @@
 #include "_getline.h"
 
 /**
+ * truncate_line - breaks off correct line to be returned.
+ * @line_read: Original line to be truncated.
  *
- *
+ * Return: Truncated string or NULL if error allocating memory.
  */
 char *truncate_line(char *line_read)
 {

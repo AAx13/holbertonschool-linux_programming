@@ -1,31 +1,6 @@
 #include "_getline.h"
 
 /**
- * truncate_line - breaks off correct line to be returned.
- * @line_read: Original line to be truncated.
- *
- * Return: Truncated string or NULL if error allocating memory.
- */
-char *truncate_line(char *line_read)
-{
-	char *line_out;
-	size_t len;
-
-	len = _strlen(line_read) + 1;
-	line_out = malloc(sizeof(char) * len);
-	if (!line_out)
-	{
-		perror("line_out");
-		return (NULL);
-	}
-
-	strncpy(line_out, line_read, len);
-
-	return (line_out);
-
-}
-
-/**
  * _getline - reads an entire line from a file descriptor.
  * @fd: A file descriptor.
  *
@@ -41,7 +16,7 @@ char *_getline(const int fd)
 
 	i = 0;
 	line_out = NULL;
-	line_read = malloc(sizeof(char) * 1024);
+	line_read = malloc(sizeof(char) * BUFFER);
 	if (!line_read)
 	{
 		perror("line_read");

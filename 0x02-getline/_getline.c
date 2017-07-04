@@ -19,19 +19,13 @@ char *_getline(const int fd)
 	line_read = malloc(sizeof(char) * BUFFER);
 	if (!line_read)
 	{
-		perror("line_read");
+		printf("malloc->line_read\n");
 		return (NULL);
 	}
 
 	count = read(fd, &c, READ_SIZE);
-	while (count)
+	while ((int)count != -1)
 	{
-		if ((int)count == -1)
-		{
-			free(line_read);
-			return (NULL);
-		}
-
 		if (count == 0 || c == '\n')
 		{
 			line_read[i] = '\0';
@@ -44,8 +38,9 @@ char *_getline(const int fd)
 		count = read(fd, &c, READ_SIZE);
 		i++;
 	}
-
+	printf("fd->read->error\n");
 	free(line_read);
+
 	return (NULL);
 }
 
@@ -64,7 +59,7 @@ char *truncate_line(char *line_read)
 	line_out = malloc(sizeof(char) * len);
 	if (!line_out)
 	{
-		perror("line_out");
+		printf("malloc->line_out");
 		return (NULL);
 	}
 

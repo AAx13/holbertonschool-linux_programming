@@ -26,12 +26,13 @@ char *_getline(const int fd)
 	count = read(fd, &c, READ_SIZE);
 	while (count || i > 0)
 	{
-		if (errno && i > 0)
+		/**
+		 *if (errno && i > 0)
 		{
 			free(line_read);
 			return (NULL);
 		}
-
+		*/
 		if (c == '\n' || count == 0)
 		{
 			line_read[i] = '\0';

@@ -9,12 +9,11 @@
  */
 char *_getline(const int fd)
 {
-	char *line_read, *line_out;
+	char *line_read;
 	size_t count;
 	char c = 0;
 	int i = 0;
 
-	line_out = NULL;
 	line_read = malloc(sizeof(char) * BUFFER);
 	if (!line_read || fd == -1)
 	{
@@ -34,14 +33,12 @@ char *_getline(const int fd)
 		if (c == '\n' || count == 0)
 		{
 			line_read[i] = '\0';
-			line_out = truncate_line(line_read);
-			free(line_read);
-			return (line_out);
+			return (line_read);
 		}
 
-		if (i + 1 > BUFFER)
+		if (i == BUFFER)
 		{
-			line_read = _realloc(line_read, i, i + 10);
+			line_read = _realloc(line_read, i, i + BUFFER);
 		}
 
 		line_read[i++] = c;
@@ -49,31 +46,6 @@ char *_getline(const int fd)
 	}
 	free(line_read);
 	return (NULL);
-}
-
-/**
- * truncate_line - breaks off correct line to be returned.
- * @line_read: Original line to be truncated.
- *
- * Return: Truncated string or NULL if error allocating memory.
- */
-char *truncate_line(char *line_read)
-{
-	char *line_out;
-	size_t len;
-
-	len = _strlen(line_read) + 1;
-	line_out = malloc(sizeof(char) * len);
-	if (!line_out)
-	{
-		putstr("malloc->line_out\n");
-		return (NULL);
-	}
-
-	strncpy(line_out, line_read, len);
-
-	return (line_out);
-
 }
 
 /**

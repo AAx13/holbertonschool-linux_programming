@@ -7,15 +7,13 @@
 #include <errno.h>
 #include <stdio.h>
 
-/* max size to be read from file descriptor. */
+/* max size to be read from file. */
 #define READ_SIZE 1
-#define BUFFER 80
+
+#define BUFFER 64
 
 /* _getline - reads an entire line from a file descriptor. */
 char *_getline(const int fd);
-
-/* truncate_line - breaks off correct line to be returned. */
-char *truncate_line(char *line_read);
 
 /* _realloc - increase the size of the memory block pointed to by *ptr. */
 void *_realloc(void *ptr, size_t old, size_t new);

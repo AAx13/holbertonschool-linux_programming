@@ -38,10 +38,10 @@ char *_getline(const int fd)
 			return (line_read);
 		}
 
-		/*if (i == buffer)
+		if (i == buffer)
 		{
 			line_read = _realloc(line_read, i, i + buffer);
-			}*/
+		}
 
 		line_read[i++] = c;
 		count = read(fd, &c, READ_SIZE);

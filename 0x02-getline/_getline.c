@@ -9,12 +9,14 @@
  */
 char *_getline(const int fd)
 {
+	size_t count, buffer;
 	char *line_read;
-	size_t count;
-	char c = 0;
-	int i = 0;
+	unsigned int i;
+	char c;
 
-	line_read = malloc(sizeof(char) * BUFFER);
+	buffer = 64;
+	i = 0, c = 0;
+	line_read = malloc(sizeof(char) * buffer);
 	if (!line_read || fd == -1)
 	{
 		free(line_read);
@@ -36,9 +38,9 @@ char *_getline(const int fd)
 			return (line_read);
 		}
 
-		if (i == BUFFER)
+		if (i == buffer)
 		{
-			line_read = _realloc(line_read, i, i + BUFFER);
+			line_read = _realloc(line_read, i, i + buffer);
 		}
 
 		line_read[i++] = c;

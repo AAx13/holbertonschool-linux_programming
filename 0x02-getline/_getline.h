@@ -19,7 +19,4 @@ void *_realloc(void *ptr, size_t old, size_t new);
 /* putstr - writes a string to stdout. */
 int putstr(char *str);
 
-/* _strlen - returns length of a string excluding null byte. */
-size_t _strlen(char *str);
-
 #endif /* _GETLINE_ */

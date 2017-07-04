@@ -70,7 +70,8 @@ void *_realloc(void *ptr, size_t old, size_t new)
 	}
 	else if (!ptr)
 	{
-		return (malloc(new));
+		new_ptr = malloc(new);
+		return (new_ptr);
 	}
 	else if (new <= old)
 	{
@@ -110,25 +111,6 @@ int putstr(char *str)
 	while (str[i])
 	{
 		write(1, &str[i], 1);
-		i++;
-	}
-
-	return (i);
-}
-
-/**
- * _strlen - gets the length of a string excluding the null byte.
- * @str: A string.
- *
- * Return: Length of a string.
- */
-size_t _strlen(char *str)
-{
-	size_t i;
-
-	i = 0;
-	while (str[i])
-	{
 		i++;
 	}
 

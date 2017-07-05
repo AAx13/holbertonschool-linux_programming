@@ -14,7 +14,7 @@ char *_getline(const int fd)
 	unsigned int i;
 	char c;
 
-	buffer = 64;
+	buffer = 512;
 	i = 0, c = 0;
 	line_read = malloc(sizeof(char) * buffer);
 	if (!line_read || fd == -1)

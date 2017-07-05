@@ -2,6 +2,7 @@ Makefile
 *~
 *\#
 test/
+*main.c
 man_gcc
 man_cat
 the_swing

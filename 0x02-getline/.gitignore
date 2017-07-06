@@ -2,6 +2,7 @@ Makefile
 *~
 *\#
 test/
+file
 *main.c
 man_gcc
 man_cat

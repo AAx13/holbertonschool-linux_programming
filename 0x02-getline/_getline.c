@@ -9,46 +9,44 @@
  */
 char *_getline(const int fd)
 {
-	size_t count, buffer;
-	char *line_read;
-	unsigned int i;
-	char c;
+	size_t count, line_size, buffer;
+	char line_read[READ_SIZE];
+	char *line_out;
 
-	buffer = 512;
-	i = 0, c = 0;
-	line_read = malloc(sizeof(char) * buffer);
-	if (!line_read || fd == -1)
+	count = 0;
+	line_size = 0;
+	buffer = READ_SIZE;
+	line_out = malloc(sizeof(char) * buffer);
+	if (fd == -1 || !line_out)
 	{
-		free(line_read);
 		return (NULL);
 	}
 
-	count = read(fd, &c, READ_SIZE);
-	while (count || i > 0)
-	{
-		/**
-		 *if (errno && i > 0)
+	memset(line_out, 0, 2);
+	do {
+		count = read(fd, line_read, READ_SIZE);
+		if (count == 0 && line_size == 0)
 		{
-			free(line_read);
+			free(line_out);
 			return (NULL);
 		}
-		*/
-		if (c == '\n' || count == 0)
+		else
 		{
-			line_read[i] = '\0';
-			return (line_read);
+			line_read[count] = '\0';
+			line_size += count;
 		}
 
-		if (i == buffer)
+		while (line_size >= buffer)
 		{
-			line_read = _realloc(line_read, i, i + buffer);
+			buffer += line_size;
+			line_out = _realloc(line_out, line_size, buffer);
 		}
+		strcat(line_out, line_read);
 
-		line_read[i++] = c;
-		count = read(fd, &c, READ_SIZE);
-	}
-	free(line_read);
-	return (NULL);
+
+	} while (count);
+
+	return (line_out);
 }
 
 /**
@@ -112,6 +110,25 @@ int putstr(char *str)
 	while (str[i])
 	{
 		write(1, &str[i], 1);
+		i++;
+	}
+
+	return (i);
+}
+
+/**
+ * _strlen - returns length of a string excluding null byte.
+ * @str: A string.
+ *
+ * Return: length of string.
+ */
+size_t _strlen(char *str)
+{
+	size_t i;
+
+	i = 0;
+	while (str[i])
+	{
 		i++;
 	}
 

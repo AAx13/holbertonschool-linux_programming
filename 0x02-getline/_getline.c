@@ -1,5 +1,6 @@
 #include "_getline.h"
 
+static int line_sentinel;
 static char left_over[READ_SIZE];
 
 /**
@@ -12,38 +13,30 @@ static char left_over[READ_SIZE];
 char *_getline(const int fd)
 {
 	char line_read[READ_SIZE + 1], *line_out = NULL;
-	int i, byte_cnt, sentinel = 0;
+	int byte_cnt;
 
+	line_sentinel = 0;
 	if (fd == -1)
 	{
+		line_sentinel = 0;
 		memset(left_over, 0, READ_SIZE);
 		return (NULL);
 	}
+
 	if (left_over[0])
 	{
-		line_out = strdup(left_over);
-		memset(left_over, 0, READ_SIZE);
+		line_out = truncate_line(left_over);
 	}
 
 	memset(left_over, 0, READ_SIZE + 1);
 	do {
 		memset(line_read, 0, READ_SIZE + 1);
 		byte_cnt = read(fd, line_read, READ_SIZE);
-		if (byte_cnt == 0)
-			return (line_out);
 
-		for (i = 0; line_read[i]; i++)
+		line_out = split_line(line_read, line_out);
+		if (line_sentinel == 1)
 		{
-			if (line_read[i] == '\n')
-			{
-				sentinel = 1;
-				break;
-			}
-		}
-
-		line_out = truncate_line(line_read, line_out);
-		if (sentinel == 1)
-		{
+			line_sentinel = 0;
 			return (line_out);
 		}
 
@@ -54,14 +47,60 @@ char *_getline(const int fd)
 }
 
 /**
- * truncate_line - will return a truncated line based on newline characters
- * and READ_SIZE.
+ *
+ */
+char *truncate_line(char *line)
+{
+	char *new_out, extra[READ_SIZE + 1];
+	int i, x, y, j;
+
+	x = 0, y = 0;
+	new_out = NULL;
+	memset(extra, 0, READ_SIZE + 1);
+	for (i = 0; line[i]; i++)
+	{
+		if (line[i] == '\n')
+		{
+			i++;
+			new_out = malloc(_strlen(line) + 1);
+			while (line[i])
+			{
+				new_out[x] = line[i];
+				if (line[i] == '\n')
+				{
+					j = i + 1;
+					new_out[x] = '\0';
+					while (line[j])
+					{
+						extra[y] = line[j];
+						j++;
+						y++;
+					}
+					extra[y] = '\0';
+					break;
+				}
+				x++;
+				i++;
+			}
+		}
+		new_out[x] = '\0';
+	}
+	if (!new_out)
+	{
+		return (line);
+	}
+	strcpy(left_over, extra);
+	return (new_out);
+}
+
+/**
+ * split_line - split the line to line_out and left_over.
  * @line_read: The buffer read into.
  * @line_out: Line to return.
  *
- * Return: Truncated line.
-*/
-char *truncate_line(char *line_read, char *line_out)
+ * Return: Line out.
+ */
+char *split_line(char *line_read, char *line_out)
 {
 	int i, x;
 
@@ -77,20 +116,28 @@ char *truncate_line(char *line_read, char *line_out)
 		line_out = _realloc(line_out, x, x + READ_SIZE + 1);
 	}
 
-	for (i = 0; line_read[i]; i++, x++)
+	if (line_read)
 	{
-		if (line_read[i] == '\n')
+		for (i = 0; line_read[i]; i++, x++)
 		{
-			i++;
-			break;
+			if (line_read[i] == '\n')
+			{
+				line_sentinel = 1;
+				break;
+			}
+			line_out[x] = line_read[i];
 		}
-		line_out[x] = line_read[i];
-	}
-	line_out[x] = '\0';
+		line_out[x] = '\0';
 
-	for (x = 0; i < READ_SIZE; x++, i++)
+		for (x = 0; line_read[i] != '\0'; x++, i++)
+		{
+			left_over[x] = line_read[i];
+		}
+	}
+	else
 	{
-		left_over[x] = line_read[i];
+		line_out = truncate_line(line_out);
+		line_sentinel = 1;
 	}
 
 	return (line_out);

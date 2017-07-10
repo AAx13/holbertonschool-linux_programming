@@ -1,5 +1,7 @@
 #include "_getline.h"
 
+static char left_over[READ_SIZE];
+
 /**
  * _getline - reads an entire line from a file descriptor.
  * @fd: A file descriptor.
@@ -9,43 +11,97 @@
  */
 char *_getline(const int fd)
 {
-	size_t count, line_size, buffer;
-	char line_read[READ_SIZE];
-	char *line_out;
+	char line_read[READ_SIZE + 1], *line_out = NULL;
+	int i, sentinel = 0;
+	size_t byte_cnt;
 
-	count = 0;
-	line_size = 0;
-	buffer = READ_SIZE;
-	line_out = malloc(sizeof(char) * buffer);
-	if (fd == -1 || !line_out)
-	{
+	if (fd == -1)
 		return (NULL);
+
+	if (left_over[0])
+	{
+		line_out = strdup(left_over);
+		memset(left_over, 0, READ_SIZE);
 	}
 
-	memset(line_out, 0, 2);
+	memset(left_over, 0, READ_SIZE + 1);
 	do {
-		count = read(fd, line_read, READ_SIZE);
-		if (count == 0 && line_size == 0)
+		memset(line_read, 0, READ_SIZE + 1);
+		byte_cnt = read(fd, line_read, READ_SIZE);
+		if (byte_cnt == 0)
 		{
-			free(line_out);
-			return (NULL);
-		}
-		else
-		{
-			line_read[count] = '\0';
-			line_size += count;
+			return (line_out);
 		}
 
-		while (line_size >= buffer)
+		for (i = 0; line_read[i]; i++)
 		{
-			buffer += line_size;
-			line_out = _realloc(line_out, line_size, buffer);
+			if (line_read[i] == '\n')
+			{
+				sentinel = 1;
+				break;
+			}
 		}
-		strcat(line_out, line_read);
 
+		line_out = truncate_line(line_read, line_out);
+		if (sentinel == 1)
+		{
+			return (line_out);
+		}
 
-	} while (count);
+	} while (byte_cnt);
+	free(line_out);
+	return (NULL);
+}
 
+/**
+ * truncate_line - will return a truncated line based on newline characters
+ * and READ_SIZE.
+ * @line_read: The buffer read into.
+ * @line_out: Line to return.
+ *
+ * Return: Truncated line.
+*/
+char *truncate_line(char *line_read, char *line_out)
+{
+	int i, x;
+
+	x = 0;
+	if (line_out == NULL)
+	{
+		line_out = malloc(sizeof(char) * READ_SIZE + 1);
+		memset(line_out, 0, READ_SIZE + 1);
+	}
+	else
+	{
+		x = _strlen(line_out);
+		line_out = _realloc(line_out, x, x * 5);
+	}
+
+	for (i = 0; line_read[i]; i++, x++)
+	{
+		if (line_read[i] == '\n')
+		{
+			i++;
+			break;
+		}
+
+		line_out[x] = line_read[i];
+	}
+	line_out[x] = '\0';
+
+	for (x = 0; i < READ_SIZE; x++, i++)
+	{
+		if (line_read[i] == '\n')
+		{
+			if (line_read[i - 1] == '\n')
+			{
+				left_over[x] = '\n';
+				break;
+			}
+			i++;
+		}
+		left_over[x] = line_read[i];
+	}
 	return (line_out);
 }
 

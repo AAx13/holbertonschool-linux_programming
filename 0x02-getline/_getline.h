@@ -7,7 +7,7 @@
 #include <errno.h>
 #include <stdio.h>
 
-#define READ_SIZE 6
+#define READ_SIZE 30
 
 char *_getline(const int fd);
 char *truncate_line(char *line_read, char *line_out);

@@ -12,12 +12,13 @@ static char left_over[READ_SIZE];
 char *_getline(const int fd)
 {
 	char line_read[READ_SIZE + 1], *line_out = NULL;
-	int i, sentinel = 0;
-	size_t byte_cnt;
+	int i, byte_cnt, sentinel = 0;
 
 	if (fd == -1)
+	{
+		memset(left_over, 0, READ_SIZE);
 		return (NULL);
-
+	}
 	if (left_over[0])
 	{
 		line_out = strdup(left_over);
@@ -29,9 +30,7 @@ char *_getline(const int fd)
 		memset(line_read, 0, READ_SIZE + 1);
 		byte_cnt = read(fd, line_read, READ_SIZE);
 		if (byte_cnt == 0)
-		{
 			return (line_out);
-		}
 
 		for (i = 0; line_read[i]; i++)
 		{
@@ -49,6 +48,7 @@ char *_getline(const int fd)
 		}
 
 	} while (byte_cnt);
+
 	free(line_out);
 	return (NULL);
 }
@@ -74,7 +74,7 @@ char *truncate_line(char *line_read, char *line_out)
 	else
 	{
 		x = _strlen(line_out);
-		line_out = _realloc(line_out, x, x * 5);
+		line_out = _realloc(line_out, x, x + READ_SIZE + 1);
 	}
 
 	for (i = 0; line_read[i]; i++, x++)
@@ -84,24 +84,15 @@ char *truncate_line(char *line_read, char *line_out)
 			i++;
 			break;
 		}
-
 		line_out[x] = line_read[i];
 	}
 	line_out[x] = '\0';
 
 	for (x = 0; i < READ_SIZE; x++, i++)
 	{
-		if (line_read[i] == '\n')
-		{
-			if (line_read[i - 1] == '\n')
-			{
-				left_over[x] = '\n';
-				break;
-			}
-			i++;
-		}
 		left_over[x] = line_read[i];
 	}
+
 	return (line_out);
 }
 

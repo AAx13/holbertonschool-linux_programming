@@ -7,10 +7,11 @@
 #include <errno.h>
 #include <stdio.h>
 
-#define READ_SIZE 2
+#define READ_SIZE 10
 
 char *_getline(const int fd);
-char *split_line(char *line_read, char *line_out);
+char *setup_line(char *line_read, char *line_out);
+char *truncate_line(char *line_in, char *line_out);
 void *_realloc(void *ptr, size_t old, size_t new);
 int putstr(char *str);
 size_t _strlen(char *str);

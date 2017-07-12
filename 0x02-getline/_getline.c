@@ -1,6 +1,7 @@
 #include "_getline.h"
 
 static int line_sentinel;
+static char left_over[READ_SIZE];
 
 /**
  * _getline - reads an entire line from a file descriptor.
@@ -17,15 +18,27 @@ char *_getline(const int fd)
 	if (fd == -1)
 	{
 		line_sentinel = 0;
+		memset(left_over, 0, READ_SIZE);
 		return (NULL);
 	}
+	if (*left_over)
+	{
+		line_out = malloc(READ_SIZE + 1);
+		memset(line_out, 0, READ_SIZE + 1);
+		line_out = truncate_line(left_over, line_out);
+		if (line_sentinel == 1)
+		{
+			line_sentinel = 0;
+			return (line_out);
+		}
+	}
 
+	memset(left_over, 0, READ_SIZE + 1);
 	do {
 		memset(line_read, 0, READ_SIZE + 1);
 		byte_cnt = read(fd, line_read, READ_SIZE);
 
-		line_out = split_line(line_read, line_out);
-
+		line_out = setup_line(line_read, line_out);
 		if (line_sentinel == 1 || byte_cnt < READ_SIZE)
 		{
 			line_sentinel = 0;
@@ -33,7 +46,6 @@ char *_getline(const int fd)
 		}
 
 	} while (byte_cnt);
-
 	if (byte_cnt == 0)
 	{
 		free(line_out);
@@ -43,15 +55,15 @@ char *_getline(const int fd)
 }
 
 /**
- * split_line - split the line to line_out and left_over.
+ * setup_line - allocate space and truncate line.
  * @line_read: The buffer read into.
  * @line_out: Line to return.
  *
  * Return: Line out.
  */
-char *split_line(char *line_read, char *line_out)
+char *setup_line(char *line_read, char *line_out)
 {
-	int i, x;
+	int x;
 
 	x = 0;
 	if (line_out == NULL)
@@ -65,17 +77,44 @@ char *split_line(char *line_read, char *line_out)
 		line_out = _realloc(line_out, x, x + READ_SIZE + 1);
 	}
 
-	for (i = 0; line_read[i]; i++, x++)
+	line_out = truncate_line(line_read, line_out);
+
+	return (line_out);
+}
+
+/**
+ * truncate_line - truncate a line to be returned.
+ * @line_in: Line to be truncated.
+ * @line_out: Line to be returned to main function.
+ *
+ * Return: A truncated line suitable for immediate return to main function.
+ */
+char *truncate_line(char *line_in, char *line_out)
+{
+	int i, x;
+
+	x = _strlen(line_out);
+	for (i = 0; line_in[i]; i++, x++)
 	{
-		if (line_read[i] == '\n' && !line_read[i + 1])
+		if (line_in[i] == '\n')
 		{
 			line_sentinel = 1;
 			i++;
 			break;
 		}
-		line_out[x] = line_read[i];
+		line_out[x] = line_in[i];
 	}
+
 	line_out[x] = '\0';
+
+	if (line_in[i])
+	{
+		for (x = 0; line_in[i]; x++, i++)
+		{
+			left_over[x] = line_in[i];
+		}
+		left_over[x] = '\0';
+	}
 
 	return (line_out);
 }
@@ -110,6 +149,7 @@ void *_realloc(void *ptr, size_t old, size_t new)
 	else
 	{
 		new_ptr = malloc(new);
+		memset(new_ptr, 0, new);
 		if (!new_ptr)
 		{
 			putstr("malloc->new_ptr\n");

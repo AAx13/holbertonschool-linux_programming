@@ -15,28 +15,26 @@ char *_getline(const int fd)
 	char line_read[READ_SIZE + 1], *line_out = NULL;
 	int byte_cnt;
 
-	line_sentinel = 0;
 	if (fd == -1)
 	{
 		line_sentinel = 0;
-		memset(left_over, 0, READ_SIZE);
 		return (NULL);
 	}
 
-	if (left_over[0])
+	if (*left_over)
 	{
-		line_out = truncate_line(left_over);
+		line_out = strdup(left_over);
 	}
 
 	memset(left_over, 0, READ_SIZE + 1);
 	do {
+		line_sentinel = 0;
 		memset(line_read, 0, READ_SIZE + 1);
 		byte_cnt = read(fd, line_read, READ_SIZE);
 
 		line_out = split_line(line_read, line_out);
 		if (line_sentinel == 1)
 		{
-			line_sentinel = 0;
 			return (line_out);
 		}
 
@@ -44,53 +42,6 @@ char *_getline(const int fd)
 
 	free(line_out);
 	return (NULL);
-}
-
-/**
- *
- */
-char *truncate_line(char *line)
-{
-	char *new_out, extra[READ_SIZE + 1];
-	int i, x, y, j;
-
-	x = 0, y = 0;
-	new_out = NULL;
-	memset(extra, 0, READ_SIZE + 1);
-	for (i = 0; line[i]; i++)
-	{
-		if (line[i] == '\n')
-		{
-			i++;
-			new_out = malloc(_strlen(line) + 1);
-			while (line[i])
-			{
-				new_out[x] = line[i];
-				if (line[i] == '\n')
-				{
-					j = i + 1;
-					new_out[x] = '\0';
-					while (line[j])
-					{
-						extra[y] = line[j];
-						j++;
-						y++;
-					}
-					extra[y] = '\0';
-					break;
-				}
-				x++;
-				i++;
-			}
-		}
-		new_out[x] = '\0';
-	}
-	if (!new_out)
-	{
-		return (line);
-	}
-	strcpy(left_over, extra);
-	return (new_out);
 }
 
 /**
@@ -116,29 +67,23 @@ char *split_line(char *line_read, char *line_out)
 		line_out = _realloc(line_out, x, x + READ_SIZE + 1);
 	}
 
-	if (line_read)
+	for (i = 0; line_read[i]; i++, x++)
 	{
-		for (i = 0; line_read[i]; i++, x++)
+		if (line_read[i] == '\n' && !line_read[i + 1])
 		{
-			if (line_read[i] == '\n')
-			{
-				line_sentinel = 1;
-				break;
-			}
-			line_out[x] = line_read[i];
+			line_sentinel = 1;
+			i++;
+			break;
 		}
-		line_out[x] = '\0';
+		line_out[x] = line_read[i];
+	}
+	line_out[x] = '\0';
 
-		for (x = 0; line_read[i] != '\0'; x++, i++)
-		{
-			left_over[x] = line_read[i];
-		}
-	}
-	else
+	for (x = 0; line_read[i]; x++, i++)
 	{
-		line_out = truncate_line(line_out);
-		line_sentinel = 1;
+		left_over[x] = line_read[i];
 	}
+	left_over[x] = '\0';
 
 	return (line_out);
 }

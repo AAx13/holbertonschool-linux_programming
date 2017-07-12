@@ -1,7 +1,6 @@
 #include "_getline.h"
 
 static int line_sentinel;
-static char left_over[READ_SIZE];
 
 /**
  * _getline - reads an entire line from a file descriptor.
@@ -21,27 +20,26 @@ char *_getline(const int fd)
 		return (NULL);
 	}
 
-	if (*left_over)
-	{
-		line_out = strdup(left_over);
-	}
-
-	memset(left_over, 0, READ_SIZE + 1);
 	do {
-		line_sentinel = 0;
 		memset(line_read, 0, READ_SIZE + 1);
 		byte_cnt = read(fd, line_read, READ_SIZE);
 
 		line_out = split_line(line_read, line_out);
-		if (line_sentinel == 1)
+
+		if (line_sentinel == 1 || byte_cnt < READ_SIZE)
 		{
-			return (line_out);
+			line_sentinel = 0;
+			break;
 		}
 
 	} while (byte_cnt);
 
-	free(line_out);
-	return (NULL);
+	if (byte_cnt == 0)
+	{
+		free(line_out);
+		return (NULL);
+	}
+	return (line_out);
 }
 
 /**
@@ -78,12 +76,6 @@ char *split_line(char *line_read, char *line_out)
 		line_out[x] = line_read[i];
 	}
 	line_out[x] = '\0';
-
-	for (x = 0; line_read[i]; x++, i++)
-	{
-		left_over[x] = line_read[i];
-	}
-	left_over[x] = '\0';
 
 	return (line_out);
 }

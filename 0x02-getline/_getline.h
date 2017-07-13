@@ -7,7 +7,7 @@
 #include <errno.h>
 #include <stdio.h>
 
-#define READ_SIZE 2
+#define READ_SIZE 1
 
 char *_getline(const int fd);
 char *setup_line(char *line_read, char *line_out);

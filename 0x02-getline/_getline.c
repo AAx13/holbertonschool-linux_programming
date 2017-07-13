@@ -26,9 +26,11 @@ char *_getline(const int fd)
 		line_out = malloc(READ_SIZE + 1);
 		memset(line_out, 0, READ_SIZE + 1);
 		line_out = truncate_line(left_over, line_out);
-		if (*left_over == '\n')
+		if (left_over[0] == '\n')
+		{
 			memset(left_over, 0, READ_SIZE);
-
+			return (line_out);
+		}
 		if (line_sentinel == 1)
 		{
 			line_sentinel = 0;
@@ -40,9 +42,7 @@ char *_getline(const int fd)
 		memset(line_read, 0, READ_SIZE + 1);
 		byte_cnt = read(fd, line_read, READ_SIZE);
 		if (byte_cnt == 0 && line_out != NULL)
-		{
 			return (line_out);
-		}
 		line_out = setup_line(line_read, line_out);
 		if (line_sentinel == 1)
 		{

@@ -4,6 +4,10 @@ static int line_sentinel;
 static char left_over[READ_SIZE];
 
 /**
+ * TODO:
+ */
+
+/**
  * _getline - reads an entire line from a file descriptor.
  * @fd: A file descriptor.
  *
@@ -26,32 +30,32 @@ char *_getline(const int fd)
 		line_out = malloc(READ_SIZE + 1);
 		memset(line_out, 0, READ_SIZE + 1);
 		line_out = truncate_line(left_over, line_out);
+		if (*left_over == '\n')
+			memset(left_over, 0, READ_SIZE);
+
 		if (line_sentinel == 1)
 		{
 			line_sentinel = 0;
 			return (line_out);
 		}
 	}
-
 	memset(left_over, 0, READ_SIZE + 1);
 	do {
 		memset(line_read, 0, READ_SIZE + 1);
 		byte_cnt = read(fd, line_read, READ_SIZE);
-
+		if (byte_cnt == 0 && line_out != NULL)
+		{
+			return (line_out);
+		}
 		line_out = setup_line(line_read, line_out);
-		if (line_sentinel == 1 || byte_cnt < READ_SIZE)
+		if (line_sentinel == 1)
 		{
 			line_sentinel = 0;
-			break;
+			return (line_out);
 		}
-
 	} while (byte_cnt);
-	if (byte_cnt == 0)
-	{
-		free(line_out);
-		return (NULL);
-	}
-	return (line_out);
+	free(line_out);
+	return (NULL);
 }
 
 /**
@@ -76,7 +80,6 @@ char *setup_line(char *line_read, char *line_out)
 		x = _strlen(line_out);
 		line_out = _realloc(line_out, x, x + READ_SIZE + 1);
 	}
-
 	line_out = truncate_line(line_read, line_out);
 
 	return (line_out);

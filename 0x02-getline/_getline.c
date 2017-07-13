@@ -4,10 +4,6 @@ static int line_sentinel;
 static char left_over[READ_SIZE];
 
 /**
- * TODO:
- */
-
-/**
  * _getline - reads an entire line from a file descriptor.
  * @fd: A file descriptor.
  *

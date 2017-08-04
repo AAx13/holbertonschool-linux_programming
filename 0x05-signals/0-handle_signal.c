@@ -18,8 +18,7 @@ void print_sig(int sig)
  */
 int handle_signal(void)
 {
-	signal(SIGINT, print_sig);
-	if (errno)
+	if (signal(SIGINT, print_sig) == SIG_ERR)
 	{
 		return (-1);
 	}

@@ -8,7 +8,7 @@
  */
 void print_sig(int sig)
 {
-	printf("Gotcha! [%d]\n", sig);
+	printf("Gotcha! [%d] \n", sig);
 }
 
 /**

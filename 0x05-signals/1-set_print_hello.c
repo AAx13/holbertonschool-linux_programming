@@ -9,7 +9,7 @@
 void print_hello(int sig __attribute__((unused)))
 {
 	printf("Hello :)\n");
-        fflush(stdout);
+	fflush(stdout);
 }
 
 /**

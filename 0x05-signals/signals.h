@@ -8,5 +8,8 @@
 #include <errno.h>
 
 int handle_signal(void);
+void print_hello(int);
+void set_print_hello(void);
+void (*current_handler_signal(void))(int);
 
 #endif /* _SIG_H_ */

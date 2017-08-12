@@ -41,6 +41,7 @@ int main(void)
 
 	pause();
 	printf("Signal received\n");
+	fflush(stdout);
 
 	return (EXIT_SUCCESS);
 }

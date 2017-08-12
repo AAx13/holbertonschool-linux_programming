@@ -38,6 +38,7 @@ int main(void)
 	{
 		return (EXIT_FAILURE);
 	}
+
 	pause();
 	printf("Signal received\n");
 

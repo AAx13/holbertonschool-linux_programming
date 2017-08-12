@@ -9,7 +9,6 @@
 void handle_sig(int sig)
 {
 	printf("Caught %d\n", sig);
-	printf("Signal received\n");
 }
 
 /**
@@ -41,6 +40,7 @@ int main(void)
 	}
 
 	pause();
+	printf("Signal received\n");
 
 	return (EXIT_SUCCESS);
 }

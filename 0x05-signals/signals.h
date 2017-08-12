@@ -20,5 +20,7 @@ int handle_sigaction(void);
 void (*current_handler_sigaction(void))(int);
 /* 4 */
 int trace_signal_sender(void);
+/* 10 */
+int pid_exist(pid_t pid);
 
 #endif /* _SIG_H_ */

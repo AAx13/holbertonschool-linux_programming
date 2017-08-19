@@ -30,6 +30,8 @@ int sigset_init(sigset_t *set, int *signals);
 int signals_block(int *signals);
 /* 15 */
 int signals_unblock(int *signals);
+/* 16 */
+int handle_pending(void (*handler)(int));
 
 
 #endif /* _SIG_H_ */

@@ -26,6 +26,8 @@ int pid_exist(pid_t pid);
 void all_in_one(void);
 /* 13 */
 int sigset_init(sigset_t *set, int *signals);
+/* 14 */
+int signals_block(int *signals);
 
 
 #endif /* _SIG_H_ */

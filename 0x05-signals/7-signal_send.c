@@ -9,9 +9,9 @@
  */
 int main(int ac, char **av)
 {
-	if (ac != 2)
+	if (ac != 2 || atoi(av[1]) < 2)
 	{
-		printf("Usage: %s <pid>", av[0]);
+		printf("Usage: %s <pid>\n", av[0]);
 		return (EXIT_FAILURE);
 	}
 	kill(atoi(av[1]), SIGINT);

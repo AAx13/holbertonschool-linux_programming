@@ -15,7 +15,7 @@ int main(int ac, char **av)
 		return (EXIT_FAILURE);
 	}
 
-	if (kill(atoi(av[1]), SIGTERM) < 1)
+	if (kill(atoi(av[1]), SIGTERM) != 0)
 	{
 		return (EXIT_FAILURE);
 	}

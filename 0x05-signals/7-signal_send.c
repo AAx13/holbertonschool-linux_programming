@@ -14,12 +14,7 @@ int main(int ac, char **av)
 		printf("Usage: %s <pid>\n", av[0]);
 		return (EXIT_FAILURE);
 	}
-
-	if (atoi(av[1]) < 2)
-	{
-		return (EXIT_FAILURE);
-	}
-	kill(atoi(av[1]), SIGINT);
+	kill(atoi(av[1]), SIGTERM);
 
 	return (EXIT_SUCCESS);
 }

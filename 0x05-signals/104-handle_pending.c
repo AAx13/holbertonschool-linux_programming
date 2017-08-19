@@ -13,10 +13,10 @@ int handle_pending(void (*handler)(int))
 	sigset_t pending_set;
 	int i;
 
+	sa.sa_handler = handler;
 	sigpending(&pending_set);
 	for (i = 0; i < 32; i++)
 	{
-		sa.sa_handler = handler;
 		sigaction(i, &sa, NULL);
 	}
 

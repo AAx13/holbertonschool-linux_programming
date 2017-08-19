@@ -28,6 +28,8 @@ void all_in_one(void);
 int sigset_init(sigset_t *set, int *signals);
 /* 14 */
 int signals_block(int *signals);
+/* 15 */
+int signals_unblock(int *signals);
 
 
 #endif /* _SIG_H_ */

@@ -1,10 +1,10 @@
 BITS 64
 
-	global asm_strlen
+	global	asm_strlen
 
-	section .text
+	section	.text
 
-	;; Copy of strlen function in C
+	;; Copycat of the function strlen(3), in x86-64 Assembly
 
 asm_strlen:
 

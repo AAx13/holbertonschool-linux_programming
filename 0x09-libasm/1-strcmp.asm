@@ -8,21 +8,21 @@ BITS 64
 
 asm_strcmp:
 
-	mov	rax, rdi
-	cmp	BYTE [rax], 0
+	mov	rax, rdi	; First string into return value.
+	cmp	BYTE [rax], 0	; Check if first string is null.
 	je	lesser
-	cmp	BYTE [rsi], 0
+	cmp	BYTE [rsi], 0	; Check if second string is null.
 	je	greater
-	sub	rax, rsi
+	sub	rax, rsi	; Subtract first string from the second.
 
-	cmp	rax, 0
+	cmp	rax, 0		; Compare result to 0.
 	jl	lesser
 	jg	greater
 	je	equal
 
-lesser:
-
-	mov	rax, -1
+lesser:				; lesser greater and equal refer to setting the correct
+				; return value based on comparison result. 
+	mov	rax, -1		
 	jmp	end
 
 greater:

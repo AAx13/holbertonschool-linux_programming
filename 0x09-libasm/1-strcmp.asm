@@ -18,7 +18,6 @@ asm_strcmp:
 	cmp	rax, 0		; Compare result to 0.
 	jl	lesser
 	jg	greater
-	je	equal
 
 lesser:				; lesser greater and equal refer to setting the correct
 				; return value based on comparison result. 
@@ -28,11 +27,6 @@ lesser:				; lesser greater and equal refer to setting the correct
 greater:
 
 	mov	rax, 1
-	jmp	end
-
-equal:
-
-	mov	rax, 0
 	jmp	end
 
 end:

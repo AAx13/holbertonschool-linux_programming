@@ -8,26 +8,34 @@ BITS 64
 
 asm_strcmp:
 
-	mov	rax, rdi	; First string into return value.
-	cmp	BYTE [rax], 0	; Check if first string is null.
-	je	lesser
-	cmp	BYTE [rsi], 0	; Check if second string is null.
-	je	greater
-	sub	rax, rsi	; Subtract first string from the second.
+	mov	rax, 0
+	mov	rcx, -1
+loop:
 
-	cmp	rax, 0		; Compare result to 0.
+	inc	rcx
+	movzx	rdx, BYTE [rdi + rcx] 	; Transfer one character at a time from s1 and s2 to rdx and rbx.
+	movzx	rbx, BYTE [rsi + rcx]
+	cmp	dl, 0			; Compare *s1 to null byte.
+	je	lesser
+	cmp	bl, 0			; Compare *s2 to null byte.
+	je	greater
+	sub	dl, bl			; Compare *s1 and *s2 to eachother. (Subtract *s1 from *s2)
 	jl	lesser
 	jg	greater
+	jmp	loop
 
-lesser:				; lesser greater and equal refer to setting the correct
-				; return value based on comparison result. 
-	mov	rax, -1		
+lesser:
+	
+	cmp	bl, 0			; If *s1 is null and *s2 is also null, return 0.
+	je	end
+	mov	rax, -1			; Else, return -1 for lesser.
 	jmp	end
 
 greater:
 
-	mov	rax, 1
-	jmp	end
+	cmp	dl, 0			; If *s2 is null and *s1 is also null, return 0.
+	je	end
+	mov	rax, 1			; Else, return 1 for greater.
 
 end:
 	ret

@@ -16,7 +16,5 @@ asm_putc:
 	mov	rdx, 1		; Mov 1 into rdx (arg3) because we only want to print 1 byte.
 	syscall			; Call write()
 
-	mov	eax, 1		; Mov 1 into eax as we're returning size_t and 1 represents a single char written.
-
 	ret
 	

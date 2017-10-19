@@ -8,6 +8,19 @@ BITS 64
 
 asm_strcasecmp:
 
-	
+	mov	rax, 0
+	mov	rcx, -1
 
+loop:
+
+	inc	rcx
+	movzx	r8, BYTE [rdi + rcx]
+	movzx	r9, BYTE [rsi + rcx]
+	cmp	r8, 0
+	je	end
+	cmp	r9, 0
+	je	end
+	jmp	loop
+
+end:
 	ret

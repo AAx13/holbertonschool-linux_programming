@@ -8,11 +8,10 @@ BITS 64
 
 asm_putc:
 
-	mov	rbx, rdi	; Store char into another register as we'll need rdi for syscall.
+	mov	[rsi], rdi	; Store char into another register as we'll need rsi for syscall.
 
 	mov	rax, 1		; Mov 1 into rax selecting the write syscall.
 	mov	rdi, 1		; Mov 1 into rdi (arg1 of write) selecting stdout file descriptor.
-	mov	[rsi], rbx	; Mov the character to print to rsi as arg2.
 	mov	rdx, 1		; Mov 1 into rdx (arg3) because we only want to print 1 byte.
 	syscall			; Call write()
 

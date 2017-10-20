@@ -10,13 +10,11 @@ BITS 64
 asm_puts:
 
 	call	asm_strlen
-	mov	rcx, rax	; Store strlen in rcx
-	mov	rbx, rdi	; Store string to write in rbx
+	mov	rdx, rax	; Store strlen in rdx
+	mov	rsi, rdi	; Store string to write in rsi
 
 	mov	rax, 1		; Write syscall
 	mov	rdi, 1
-	mov	rsi, rbx	; String
-	mov	rdx, rcx	; String length
 	syscall			; Return value is bytes written to stdout.
 
 	ret

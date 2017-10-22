@@ -13,8 +13,8 @@ asm_strcmp:
 loop:
 
 	inc	rcx
-	movzx	rdx, BYTE [rdi + rcx] 	; Transfer one character at a time from s1 and s2 to rdx and rbx.
-	movzx	rbx, BYTE [rsi + rcx]
+	mov	dl, BYTE [rdi + rcx] 	; Transfer one character at a time from s1 and s2 to rdx and rbx.
+	mov	bl, BYTE [rsi + rcx]
 	cmp	dl, 0			; Compare *s1 to null byte.
 	je	lesser
 	cmp	bl, 0			; Compare *s2 to null byte.

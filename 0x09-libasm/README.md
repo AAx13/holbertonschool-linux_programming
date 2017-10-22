@@ -12,13 +12,13 @@
 
 [0-strlen.asm](../0x09-libasm/0-strlen.asm)
 ```nasm
-;; Copycat of the function strlen(3), in x86-64 Assembly
+	;; Copycat of the function strlen(3), in x86-64 Assembly
 size_t asm_strlen(const char *str);
 ```
 
 [](../0x09-libasm/)
 ```c
-
+        ;; Copycat of the function strcmp(3), in x86-64 Assembly
 ```
 
 [](../0x09-libasm/)
